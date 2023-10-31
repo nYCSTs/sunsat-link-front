@@ -3,7 +3,7 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
 import { AiFillCheckCircle, AiFillCloseCircle } from 'react-icons/ai';
 
 import './styles.scss';
-import { useDisclosure, Text, Table, TableContainer, Thead, Tr, Td, Tbody } from '@chakra-ui/react';
+import { useDisclosure, Text, Table, TableContainer, Thead, Tr, Td, Tbody, Th } from '@chakra-ui/react';
 import { Modal } from '../../component/Modal';
 import { colors } from '../../styles/Colors';
 
@@ -72,7 +72,12 @@ const Users = () => {
           borderColor='whiteAlpha.100'
           overflowY="auto"
         >
-          <Table variant="unstyled" colorScheme="whiteAlpha" width="100%">
+          <Table
+            variant="unstyled"
+            colorScheme="whiteAlpha"
+            width="100%"
+            __css={{'table-layout': 'fixed', width: 'full'}}
+          >
             <Thead
               bg='white'
               fontWeight="semibold"
@@ -82,9 +87,9 @@ const Users = () => {
               zIndex={+1}
             >
               <Tr width="100%" color={colors.white}>
-                <Td>E-mail</Td>
-                <Td>Permissões</Td>
-                <Td>Autorizar</Td>
+                <Th fontSize='sm'>E-mail</Th>
+                <Th fontSize='sm'>Permissões</Th>
+                <Th fontSize='sm'>Autorizar</Th>
               </Tr>
             </Thead>
             <Tbody fontWeight="semibold" maxHeight="200px">
@@ -95,7 +100,7 @@ const Users = () => {
                     <Td>{user.permissions}</Td>
                     <Td>
                       {user.active 
-                        ? <span>Autorizado</span> 
+                        ? 'Autorizado'
                         : (
                           <div className='manage-user'>
                             <AiFillCheckCircle onClick={onOpen}/> <AiFillCloseCircle />

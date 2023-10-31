@@ -30,7 +30,7 @@ const Header = () => {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="satellites">
               <FaSatellite className='icon' />
               <span className='link-name'>Satélites</span>
             </a>
