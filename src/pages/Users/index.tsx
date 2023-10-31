@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa';
 import { AiFillCheckCircle, AiFillCloseCircle } from 'react-icons/ai';
 
 import './styles.scss';
+import { useDisclosure, Text, Table, TableContainer, Thead, Tr, Td, Tbody } from '@chakra-ui/react';
+import { Modal } from '../../component/Modal';
+import { colors } from '../../styles/Colors';
 
 enum RolesEnum {
   DEFAULT = 'PADRÃO',
@@ -50,40 +53,63 @@ const Users = () => {
     setPagination(currState => ({ ...currState, page: currState.page + 1 }));
   }
 
+  const {
+    isOpen,
+    onClose,
+    onOpen,
+  } = useDisclosure();
+
   return (
     <div className='page-container'>
       <h2>Gerenciamento de Usuários</h2>
 
       <div className='table-container'>
-        <table>
-          <thead>
-            <tr>
-              <th>E-mail</th>
-              <th>Permissões</th>
-              <th>Autorizar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.slice(pagination.page * pagination.take, (pagination.page * pagination.take) + pagination.take).map((user, idx) => {
-              return (
-                <tr key={idx}>
-                  <td>{user.email}</td>
-                  <td>{user.permissions}</td>
-                  <td>
-                    {user.active 
-                      ? <span>Autorizado</span> 
-                      : (
-                        <div className='manage-user'>
-                          <AiFillCheckCircle /> <AiFillCloseCircle />
-                        </div>
-                      )
-                    }
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+        <TableContainer
+          height="55vh"
+          whiteSpace="inherit"
+          fontSize="sm"
+          border="1px"
+          borderColor='whiteAlpha.100'
+          overflowY="auto"
+        >
+          <Table variant="unstyled" colorScheme="whiteAlpha" width="100%">
+            <Thead
+              bg='white'
+              fontWeight="semibold"
+              fontSize='md'
+              position="sticky"
+              top="0"
+              zIndex={+1}
+            >
+              <Tr width="100%" color={colors.white}>
+                <Td>E-mail</Td>
+                <Td>Permissões</Td>
+                <Td>Autorizar</Td>
+              </Tr>
+            </Thead>
+            <Tbody fontWeight="semibold" maxHeight="200px">
+              {data.slice(pagination.page * pagination.take, (pagination.page * pagination.take) + pagination.take).map((user, idx) => {
+                return (
+                  <Tr key={idx}>                          
+                    <Td>{user.email}</Td>
+                    <Td>{user.permissions}</Td>
+                    <Td>
+                      {user.active 
+                        ? <span>Autorizado</span> 
+                        : (
+                          <div className='manage-user'>
+                            <AiFillCheckCircle onClick={onOpen}/> <AiFillCloseCircle />
+                          </div>
+                        )
+                      }
+                    </Td>
+                  </Tr>
+                )
+              })}
+              
+            </Tbody>
+          </Table>
+        </TableContainer>
         <div className='pagination'>
           <FaArrowCircleLeft 
             name="previous" 
@@ -98,6 +124,19 @@ const Users = () => {
           />
         </div>
       </div>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        onConfirm={() => console.log('confirmed')}
+        size="4xl"
+      >
+        <Text
+          fontSize='xl'
+          paddingBottom='20px'
+        >
+          Realmente deseja autorizar o usuário?
+        </Text>
+      </Modal>
     </div>
   );
 };

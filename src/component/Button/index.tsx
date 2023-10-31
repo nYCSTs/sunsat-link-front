@@ -4,12 +4,17 @@ import './style.scss';
 
 interface ButtonProps {
   text: string;
+  color?: 'primary' | 'secondary';
+  format?: 'standard' | 'circle';
   onClick?: () => void;
 }
 
-const Button = ({ text, onClick }: ButtonProps) => {
+const Button = ({ text, color = 'primary', format = 'standard', onClick }: ButtonProps) => {
+  const buttonColor = `button-${color}`;
+  const buttonFormat = `button-${format}`;
+
   return (
-    <button onClick={onClick}>
+    <button className={`${buttonColor} ${buttonFormat}`} onClick={onClick}>
       {text}
     </button>
   )

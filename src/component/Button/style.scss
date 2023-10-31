@@ -1,13 +1,43 @@
-button {
-  background-color: #061A40 !important;
+@import '../../styles/colors.scss';
+
+/* Primary button styles */
+.button-primary {
+  background-color: $blue;
   border: none;
   padding: 12px 0 !important;
   color: #FFF;
-  border-radius: 12px;
   font-size: 20px;
   width: 100%;
+  &:hover {
+    background-color: $black;
+  }
 
   @media (max-width: 750px) {
     font-size: 16px;
   }
+}
+
+/* Secondary button styles */
+.button-secondary {
+  background-color: $orange;
+  border: none;
+  padding: 12px 0 !important;
+  color: #FFF;
+  font-size: 20px;
+  width: 100%;
+  &:hover {
+    background-color: $black;
+  }
+
+  @media (max-width: 750px) {
+    font-size: 16px;
+  }
+}
+
+.button-standard {
+  border-radius: 12px;
+}
+
+.button-circle {
+  border-radius: 50px;
 }
